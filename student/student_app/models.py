@@ -32,11 +32,22 @@ class MyUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+    def create_superuser(self, email, date_of_birth, password=None):
+        """
+        Creates and saves a superuser with the given email, date of
+        birth and password.
+        """
+        user = self.create_user(
+            email,
+            password=password,
+            date_of_birth=date_of_birth,
+        )
+        user.is_admin = True
+        user.save(using=self._db)
+        return user
+
 
 class MyUser(AbstractBaseUser):
-    """
-    create user
-    """
     email = models.EmailField(
         verbose_name='email address',
         max_length=255,
@@ -65,7 +76,7 @@ class MyUser(AbstractBaseUser):
     REQUIRED_FIELDS = ['date_of_birth']
 
     def __str__(self):
-        return str(self.email)
+        return self.email
 
     def has_perm(self, perm, obj=None):
         "Does the user have a specific permission?"

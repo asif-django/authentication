@@ -40,6 +40,7 @@ def user_logout(request):
     :return: login_page
     """
     logout(request)
+    messages.success(request, 'User Logout Successfully')
     return HttpResponseRedirect('/')
 
 
@@ -71,6 +72,7 @@ def user_register(request):
                                                  photo=photo,
                                                  mobile=mobile, ssc_marks=ssc,
                                                  inter_marks=inter)
+        messages.success(request, 'User Register Successfully')
         return HttpResponseRedirect(
             reverse('user_details', args=(user_detail.id,)))
 
@@ -92,8 +94,10 @@ def change_password(request):
                 old_pwd) and new_pwd == cnfm_new_pwd and old_pwd != new_pwd:
             user.set_password(new_pwd)
             user.save()
+            messages.success(request, 'Your Password Changed Successfully')
             return HttpResponseRedirect(
                 reverse('user_details', args=(user.id,)))
+        messages.error(request, 'User not Register')
         return HttpResponseRedirect("/change_pwd/")
     return render(request, 'user/change_pwd.html')
 
