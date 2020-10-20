@@ -1,0 +1,32 @@
+<h3> Register </h3>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" placeholder="Your Email Address"><br><br>
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" placeholder="Password"><br><br>
+    <label for="dob">Date of Birth</label>
+    <input type="date" id="dob" name="dob" placeholder="Date of Birth"><br><br>
+    <label for="username">User_Name</label>
+    <input type="text" id="username" name="username" placeholder="User Name"><br><br>
+    <label for="father_name">Father_Name</label>
+    <input type="text" id="father_name" name="father_name" placeholder="Father Name"><br><br>
+    <label for="mother_name">Mother_Name</label>
+    <input type="text" id="mother_name" name="mother_name" placeholder="Mother Name"><br><br>
+    <label for="nationality">Nationality</label>
+    <input type="text" id="nationality" name="nationality" placeholder="Nationality"><br><br>
+    <label for="mobile">Mobile N0.</label>
+    <input type="text" id="mobile" name="mobile" placeholder="Mobile Number"><br><br>
+    <label for="photo">Photo</label>
+    <input type="file" id="photo" name="photo" placeholder="Photo"><br><br>
+    <label for="ssc_marks">SSC Mark</label>
+    <input type="text" id="ssc_marks" name="ssc_marks" placeholder="Your Email Address"><br><br>
+    <label for="inter_marks">Inter_Marks</label>
+    <input type="text" id="inter_marks" name="inter_marks" placeholder="Your Email Address"><br><br>
+    <button type="submit">Submit</button>
+
+
+</form>
+
+<a href="{% url 'login' %}">Login</a>

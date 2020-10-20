@@ -1,0 +1,49 @@
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  text-align:center;
+}
+</style>
+
+<h2> Users Details</h2>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<table>
+    <thead>
+    <th>Photo</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Father_Name</th>
+    <th>Mother_Name</th>
+    <th>Nationality</th>
+    <th>Mobile</th>
+    <th>SSC_Marks</th>
+    <th>Inter_Marks</th>
+    </thead>
+    <tbody>
+    <tr>
+        <td><img style="width:100px; height:100px" src="{{ data.photo.url }}" ></td>
+        <td> {{ data.user_name }}</td>
+        <td> {{ data.email }}</td>
+        <td> {{ data.father_name }}</td>
+        <td> {{ data.mother_name }}</td>
+        <td> {{ data.nationality }}</td>
+        <td> {{ data.mobile }}</td>
+        <td> {{ data.ssc_marks }}</td>
+        <td> {{ data.inter_marks }}</td>
+    </tr>
+    </tbody>
+</table>
+<br><br>
+
+<a href="{% url 'user_logout' %}">Logout</a><br><br>
+<a href="{% url 'change_pwd' %}">Change_Password</a><br><br>
+<a href="{% url 'users_list' %}">Students_List</a>
