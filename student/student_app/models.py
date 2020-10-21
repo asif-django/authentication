@@ -6,9 +6,7 @@ from django.db import models
 
 
 class MyUserManager(BaseUserManager):
-    def create_user(self, email, date_of_birth, password, user_name,
-                    father_name, mother_name, nationality, photo,
-                    mobile, ssc_marks, inter_marks):
+    def create_user(self, email, date_of_birth, password=None):
         """
         Creates and saves a User with the given email, date of
         birth and password.
@@ -18,14 +16,7 @@ class MyUserManager(BaseUserManager):
 
         user = self.model(
             email=self.normalize_email(email),
-            date_of_birth=date_of_birth,
-            password=password,
-            user_name=user_name,
-            father_name=father_name,
-            mother_name=mother_name,
-            nationality=nationality, photo=photo,
-            mobile=mobile, ssc_marks=ssc_marks,
-            inter_marks=inter_marks
+            date_of_birth=date_of_birth
         )
 
         user.set_password(password)
@@ -48,6 +39,9 @@ class MyUserManager(BaseUserManager):
 
 
 class MyUser(AbstractBaseUser):
+    """
+    creating user by inheriting AbstractBaseUser
+    """
     email = models.EmailField(
         verbose_name='email address',
         max_length=255,
@@ -55,18 +49,21 @@ class MyUser(AbstractBaseUser):
     )
     date_of_birth = models.DateField()
     user_name = models.CharField(max_length=255, verbose_name="User Name",
+                                 null=True,
                                  blank=True)
     father_name = models.CharField(max_length=255, verbose_name="Father Name",
-                                   blank=True)
+                                   blank=True, null=True)
     mother_name = models.CharField(max_length=255, verbose_name="Mother Name",
-                                   blank=True)
+                                   blank=True, null=True)
     nationality = models.CharField(max_length=255, verbose_name="Nationality",
-                                   blank=True)
-    mobile = models.IntegerField(blank=True, verbose_name="Mobile Number")
+                                   blank=True, null=True)
+    mobile = models.CharField(max_length=255, blank=True, verbose_name="Mobile Number",
+                                 null=True)
     photo = models.ImageField(upload_to='user/images', blank=True,
-                              verbose_name="Image")
-    ssc_marks = models.IntegerField(blank=True, verbose_name="SSC Marks")
-    inter_marks = models.IntegerField(blank=True, verbose_name="Inter Marks")
+                              verbose_name="Image", null=True)
+    ssc_marks = models.IntegerField(verbose_name="SSC Marks",
+                                    default=0)
+    inter_marks = models.IntegerField(default=0, verbose_name="Inter Marks")
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 

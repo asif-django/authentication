@@ -58,20 +58,23 @@ def user_register(request):
         fathername = request.POST["father_name"]
         mothername = request.POST["mother_name"]
         nationality = request.POST["nationality"]
-        photo = request.FILES["photo"]
+        photo = request.FILES.get("photo")
         mobile = request.POST["mobile"]
         ssc = request.POST["ssc_marks"]
         inter = request.POST["inter_marks"]
 
         user_detail = MyUser.objects.create_user(email=email, password=pasword,
-                                                 date_of_birth=dob,
-                                                 user_name=username,
-                                                 father_name=fathername,
-                                                 mother_name=mothername,
-                                                 nationality=nationality,
-                                                 photo=photo,
-                                                 mobile=mobile, ssc_marks=ssc,
-                                                 inter_marks=inter)
+                                                 date_of_birth=dob)
+        user_detail.user_name = username
+        user_detail.father_name = fathername
+        user_detail.mother_name = mothername
+        user_detail.nationality_name = nationality
+        user_detail.mobile = mobile
+        user_detail.ssc_marks = ssc
+        user_detail.inter_marks = inter
+        user_detail.photo = photo
+        user_detail.save()
+
         messages.success(request, 'User Register Successfully')
         return HttpResponseRedirect(
             reverse('user_details', args=(user_detail.id,)))

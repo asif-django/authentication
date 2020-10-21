@@ -30,7 +30,11 @@ table, th, td {
     </thead>
     <tbody>
     <tr>
+        {% if data.photo %}
         <td><img style="width:100px; height:100px" src="{{ data.photo.url }}" ></td>
+        {% else %}
+        <td>None</td>
+        {% endif %}
         <td> {{ data.user_name }}</td>
         <td> {{ data.email }}</td>
         <td> {{ data.father_name }}</td>
